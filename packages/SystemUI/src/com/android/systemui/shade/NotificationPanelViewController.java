@@ -320,6 +320,10 @@ public final class NotificationPanelViewController implements Dumpable {
     private static final String COUNTER_PANEL_OPEN = "panel_open";
     private static final String COUNTER_PANEL_OPEN_QS = "panel_open_qs";
     private static final String COUNTER_PANEL_OPEN_PEEK = "panel_open_peek";
+
+    private static final String QS_UI_STYLE =
+            "system:" + Settings.System.QS_UI_STYLE;
+
     private static final Rect M_DUMMY_DIRTY_RECT = new Rect(0, 0, 1, 1);
     private static final Rect EMPTY_RECT = new Rect();
     /**
@@ -774,6 +778,8 @@ public final class NotificationPanelViewController implements Dumpable {
      * For PanelView fling perflock call
      */
     private BoostFramework mPerf = null;
+    
+    private boolean mIsA11Style;
 
     private final Runnable mFlingCollapseRunnable = () -> fling(0, false /* expand */,
             mNextCollapseSpeedUpFactor, false /* expandBecauseOfFalsing */);
@@ -5959,6 +5965,11 @@ public final class NotificationPanelViewController implements Dumpable {
             mView.setAccessibilityPaneTitle(determineAccessibilityPaneTitle());
         }
         mNotificationStackScrollLayoutController.setMaxTopPadding(mQsMaxExpansionHeight);
+        if (mIsA11Style) {
+            float qsExpansionFraction = computeQsExpansionFraction();
+            int qsPanelBottomY = calculateQsBottomPosition(qsExpansionFraction);
+            mScrimController.setQsPosition(qsExpansionFraction, qsPanelBottomY);
+        }
     }
 
     private final class ConfigurationListener implements
@@ -6211,6 +6222,16 @@ public final class NotificationPanelViewController implements Dumpable {
             mStatusBarStateController.addCallback(mStatusBarStateListener);
             mStatusBarStateListener.onStateChanged(mStatusBarStateController.getState());
             mConfigurationController.addCallback(mConfigurationListener);
+<<<<<<< HEAD
+=======
+            mTunerService.addTunable(this, STATUS_BAR_QUICK_QS_PULLDOWN);
+            mTunerService.addTunable(this, DOUBLE_TAP_SLEEP_GESTURE);
+            mTunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
+            mTunerService.addTunable(this, RETICKER_STATUS);
+            mTunerService.addTunable(this, RETICKER_COLORED);
+            mTunerService.addTunable(this, KEYGUARD_QUICK_TOGGLES_NEW);
+            mTunerService.addTunable(this, QS_UI_STYLE);
+>>>>>>> 87de7d44acce (SystemUI: A11 QS UI Style [1/3])
             // Theme might have changed between inflating this view and attaching it to the
             // window, so
             // force a call to onThemeChanged

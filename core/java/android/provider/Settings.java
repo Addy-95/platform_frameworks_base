@@ -6128,6 +6128,11 @@ public final class Settings {
         public static final String X_FOOTER_TEXT_STRING = "x_footer_text_string";
 
         /**
+         * @hide
+         */
+        public static final String QS_UI_STYLE = "qs_ui_style";
+
+        /**
          * Whether to enable PULSE Edge lights
          * @hide
          */

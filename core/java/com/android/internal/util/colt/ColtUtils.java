@@ -438,6 +438,12 @@ public class ColtUtils {
         }
     }
 
+    public static int getQsUiStyle(Context context) {
+        return Settings.System.getIntForUser(context.getContentResolver(),
+            Settings.System.QS_UI_STYLE,
+            0, UserHandle.USER_CURRENT);
+    }
+
     public static void sendSystemKeyToStatusBar(int keyCode) {
        IStatusBarService service = getStatusBarService();
        if (service != null) {
